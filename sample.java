@@ -1,28 +1,34 @@
-abstract class shape
+class Mythread implements Runnable
 {
-abstract void draw();
+public void run()
+{
+System.out.println(Thread.currentThread().getName()+" running");
+for(int i=5;i>0;i--)
+{
+System.out.println(Thread.currentThread().getName()+" : "+i);
 }
-class rectangle extends shape
-{
-void draw()
-{
-System.out.println("Drawing rectangle");
-}
-}
-class circle extends shape
-{
-void draw()
-{
-System.out.println("Drawing circle");
+System.out.println(Thread.currentThread().getName()+" exiting");
 }
 }
 public class sample
 {
 public static void main(String[] args)
 {
-circle c=new circle();
-c.draw();
-rectangle r=new rectangle();
-r.draw();
+Mythread r1 = new Mythread();
+Thread t1 = new Thread(r1,"Thread 1");
+Thread t2 = new Thread(r1,"Thread 2");
+Thread t3 = new Thread(r1,"Thread 3");
+System.out.println(t1.getName()+" priority "+t1.getPriority());
+System.out.println(t2.getName()+" priority "+t2.getPriority());
+System.out.println(t3.getName()+" priority "+t3.getPriority());
+t1.setPriority(6);
+t2.setPriority(3);
+t3.setPriority(9);
+System.out.println("New "+t1.getName()+" priority "+t1.getPriority());
+System.out.println("New "+t2.getName()+" priority "+t2.getPriority());
+System.out.println("New "+t3.getName()+" priority "+t3.getPriority());
+t1.start();
+t2.start();
+t3.start();
 }
 }
